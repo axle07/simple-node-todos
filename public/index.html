@@ -87,6 +87,7 @@
 					for(var i=0; i < list.length; i++){
 						output = output + "<p>" + list[i].newtodo + "</p>";
 						output = output + "<a href='javascript:deleteTodo(" + list[i].todoid.toString() + ")'>" + "Delete</a>";
+						output = output + "<a href='javascript:editTodo(" + list[i].todoid.toString() + ")'>" + "Edit</a>";
 						output = output + "<hr>";
 					}
 					document.getElementById("list").innerHTML = output;
@@ -105,11 +106,22 @@
 				loadURL(url, callback); 
 			}
 
-			function editTodo(index) {
-				var url = "./edittodo?index=" + encodeURIComponent(index);
-				
-				var newtodo = prompt("Edit  todo", "");
+			/* 
+			function editTodo(id, str){
+				var x = req.query;
+				var callback = function(error, result){
+					if(result) {
+						res.end("added");
+					}
+				}
+			}
 
+			 */
+
+			function editTodo(index) {
+				var newData = prompt("Edit  todo", "");
+				var url = "./edittodo?index=" + encodeURIComponent(index) + "&newData=" + encodeURIComponent(newData);
+				console.log(url);
 				var callback = function(data){
 					if(data === "edited"){
 						updateList();

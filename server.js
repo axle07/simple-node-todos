@@ -34,20 +34,25 @@ app.get("/deletetodo", function (req, res) {
 	db.collection("todo").remove( { "todoid" : index.toString()  }, callback);
 });
 
-app.get("edittodo", function(req, res) {
+app.get("/edittodo", function(req, res) {
 	var index = req.query.index;
+	//console.log(index);
+	var newData = req.query.newData;
 	var callback = function(error, result){
 		if(!error) {
 			res.end("edited");
 		}
 	}
-	//	db.collection("todo").update( { "todoid" : index.toString() },
-	//		{
-	//			$set: {
-	//				newtodo: "Finish the edit method!"
-	//			}
-	//		}
-	//	)
+	db.todo.update( { todoid : "1425319886645" },     {        $set: {          newtodo: "newer  data"       }      }, callback      )
+	/*
+	db.todo.update( { todoid : index.toString() },
+		{
+			$set: {
+				newtodo: newData
+			}
+		}
+		)
+		*/
 });
 
 app.get("/listtodos", function (req, res) {
