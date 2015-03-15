@@ -34,26 +34,27 @@ app.get("/deletetodo", function (req, res) {
 	db.collection("todo").remove( { "todoid" : index.toString()  }, callback);
 });
 
-app.get("/edittodo", function(req, res) {
-	var index = req.query.index;
-	//console.log(index);
-	var newData = req.query.newData;
-	var callback = function(error, result){
-		if(!error) {
-			res.end("edited");
+app.get("/edittodo", function (req, res) {
+ 	var x = req.query;
+ 	var callback = function(error, result){
+ 		if(result)
+ 		{
+ 			res.end("done");
+ 		}
+ 	}
+	
+	db.collection("todo").findOne({todoid: x.todoid}, function(err, result1) {
+		if(result1){
+			console.log(result1);
+			result1.newtodo = x.newtodo;
+			db.collection("todo").save(result1, callback);
 		}
-	}
-	db.todo.update( { todoid : "1425319886645" },     {        $set: {          newtodo: "newer  data"       }      }, callback      )
-	/*
-	db.todo.update( { todoid : index.toString() },
-		{
-			$set: {
-				newtodo: newData
-			}
+		else{
+			db.collection("todo").insert(x, callback);
 		}
-		)
-		*/
+	});
 });
+
 
 app.get("/listtodos", function (req, res) {
 	db.collection("todo").find().toArray(function(err, result) {

@@ -2,9 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<style>
-
 		</style>
-
 		<script>
 			/*
 			This method uses a couple different methods of instantiating the
@@ -35,7 +33,6 @@
 				return request;
 			}
 
-
 			function loadURL(url, callback)
 			{
 				var aXMLHttpRequest = getXMLHTTPRequest();
@@ -62,7 +59,6 @@
 				}
 			}
 
-
 			function addNew()
 			{
 				var newtodo = prompt("Enter new todo", "")
@@ -74,7 +70,7 @@
 				} 
 				loadURL(url, callback);   
 			}
-			
+
 			var inspectList;
 
 			function updateList()
@@ -93,7 +89,6 @@
 					document.getElementById("list").innerHTML = output;
 				}  
 				loadURL(url, callback);   
-
 			}
 
 			function deleteTodo(index){
@@ -106,30 +101,27 @@
 				loadURL(url, callback); 
 			}
 
-			/* 
-			function editTodo(id, str){
-				var x = req.query;
-				var callback = function(error, result){
-					if(result) {
-						res.end("added");
-					}
-				}
-			}
-
-			 */
-
-			function editTodo(index) {
-				var newData = prompt("Edit  todo", "");
-				var url = "./edittodo?index=" + encodeURIComponent(index) + "&newData=" + encodeURIComponent(newData);
+			function editTodo(index, str) {
+				var newData = prompt("Edit  todo", getTodoText(index));
+				var url = "./edittodo?todoid=" + encodeURIComponent(index) + "&newtodo=" + encodeURIComponent(newData);
 				console.log(url);
 				var callback = function(data){
-					if(data === "edited"){
+					if(data === "done"){
 						updateList();
 					}
-					loadURL(url, callback);
 				}
+				loadURL(url, callback);
 			}
 
+			function getTodoText(id)
+			{
+				for(var i = 0; i < inspectList.length; i++){
+					if( parseInt(inspectList[i].todoid) == id){
+						return inspectList[i].newtodo;
+					}
+				}
+				return "";
+			}
 			//This loads the existing list items on page refresh/load
 			updateList();
 		</script>
