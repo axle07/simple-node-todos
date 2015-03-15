@@ -1,29 +1,11 @@
-Simple Express Static File Server
+Simple Node To Do App
 =================================
 
 Description
 -----------
 
-A very simple static file server. For development use only.
+A very simple to do app using NodeJS for AME598 at ASU.
 
-Install dependencies (first time only):
+Server is from a clone of https://github.com/spadin/simple-express-static-server
 
-    $ npm install
-
-How to start:
-
-    $ node server
-
-Open [http://localhost:4567](http://localhost:4567)
-
-If you need a different port:
-
-    $ PORT=9999 node server
-
-Open [http://localhost:9999](http://localhost:9999)
-
-If you need a different hostname:
-
-    $ HOSTNAME=192.168.0.1 node server
-
-Open [http://192.168.0.1:4567](http://192.168.0.1:4567)
+Significant portions of the server functions are by Tejaswi Gowda https://github.com/tejaswigowda

@@ -87,7 +87,7 @@
 					inspectList = list;
 					var output = "";
 					for(var i=0; i < list.length; i++){
-						output = output + "<div style='background-color: lightGray; margin: 0 26px 36px 0; padding: 8px; border: 1px solid darkGray; border-radius: 8px; display: inline-block'><p id='" + list[i].todoid.toString() + "'>" + list[i].newtodo + "</p>";
+						output = output + "<div style='min-width: 168px; background-color: lightGray; margin: 0 26px 36px 0; padding: 8px; border: 1px solid darkGray; border-radius: 8px; display: inline-block'><p id='" + list[i].todoid.toString() + "'>" + list[i].newtodo + "</p>";
 							output = output + "<input type='text' style='display: none' id='input" + list[i].todoid.toString() + "'><a id='button" + list[i].todoid.toString() + "' class='btn btn-success' style='display: none'  href='javascript:setTodo(" + list[i].todoid.toString() + ")'>Update</a>";
 							output = output + "<div id='buttons" + list[i].todoid.toString() + "'><a href='javascript:editTodo(" + list[i].todoid.toString() + ")' class='btn btn-default' style='margin-right: 26px'>" + "Edit</a>";
 						output = output + "<a href='javascript:deleteTodo(" + list[i].todoid.toString() + ")' class='btn btn-danger'>" + "Delete</a>";
@@ -139,8 +139,6 @@
 			}
 			//This loads the existing list items on page refresh/load
 			updateList();
-
-			//UI 
 
 			function showNew() {
 				document.getElementById("newWrapper").style.display = "block";
