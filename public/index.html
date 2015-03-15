@@ -1,5 +1,9 @@
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Totally Awesome To Do List</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<style>
 		</style>
@@ -61,7 +65,8 @@
 
 			function addNew()
 			{
-				var newtodo = prompt("Enter new todo", "")
+				var newtodo = document.getElementById("new").value;
+				console.log(newtodo);
 				var url = "./addtodo?newtodo=" + encodeURIComponent(newtodo) + "&todoid=" + new Date().getTime().toString();;
 				var callback = function(data){
 					if(data === "added"){
@@ -69,6 +74,8 @@
 					}
 				} 
 				loadURL(url, callback);   
+				document.getElementById("newWrapper").style.display = "none";
+				document.getElementById("addNewBtn").style.display = "inline-block";
 			}
 
 			var inspectList;
@@ -82,8 +89,8 @@
 					var output = "";
 					for(var i=0; i < list.length; i++){
 						output = output + "<p>" + list[i].newtodo + "</p>";
-						output = output + "<a href='javascript:deleteTodo(" + list[i].todoid.toString() + ")'>" + "Delete</a>";
-						output = output + "<a href='javascript:editTodo(" + list[i].todoid.toString() + ")'>" + "Edit</a>";
+						output = output + "<a href='javascript:editTodo(" + list[i].todoid.toString() + ")' class='btn btn-default' style='margin-right: 26px'>" + "Edit</a>";
+						output = output + "<a href='javascript:deleteTodo(" + list[i].todoid.toString() + ")' class='btn btn-danger'>" + "Delete</a>";
 						output = output + "<hr>";
 					}
 					document.getElementById("list").innerHTML = output;
@@ -124,6 +131,13 @@
 			}
 			//This loads the existing list items on page refresh/load
 			updateList();
+
+			//UI 
+
+			function showNew() {
+				document.getElementById("newWrapper").style.display = "block";
+				document.getElementById("addNewBtn").style.display = "none";
+			}
 		</script>
 
 	</head>
@@ -132,7 +146,11 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h1> Todos </h1>
-					<a class="btn btn-success" href='javascript:addNew()'>Add new</a>
+					<a id="addNewBtn" class="btn btn-primary" href='javascript:showNew()'>Add new</a>
+					<div id="newWrapper" style="display: none">
+						Enter New To Do: <input type="text" id="new">
+						<a class="btn btn-success" href="javascript:addNew()">Add</a>
+					</div>
 					<hr>
 				</div>
 			</div>
@@ -143,6 +161,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 </body>
-
 </html>
