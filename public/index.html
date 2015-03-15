@@ -66,7 +66,6 @@
 			function addNew()
 			{
 				var newtodo = document.getElementById("new").value;
-				console.log(newtodo);
 				var url = "./addtodo?newtodo=" + encodeURIComponent(newtodo) + "&todoid=" + new Date().getTime().toString();;
 				var callback = function(data){
 					if(data === "added"){
@@ -88,10 +87,11 @@
 					inspectList = list;
 					var output = "";
 					for(var i=0; i < list.length; i++){
-						output = output + "<p>" + list[i].newtodo + "</p>";
-						output = output + "<a href='javascript:editTodo(" + list[i].todoid.toString() + ")' class='btn btn-default' style='margin-right: 26px'>" + "Edit</a>";
+						output = output + "<div style='background-color: lightGray; margin: 0 26px 36px 0; padding: 8px; border: 1px solid darkGray; border-radius: 8px; display: inline-block'><p id='" + list[i].todoid.toString() + "'>" + list[i].newtodo + "</p>";
+							output = output + "<input type='text' style='display: none' id='input" + list[i].todoid.toString() + "'><a id='button" + list[i].todoid.toString() + "' class='btn btn-success' style='display: none'  href='javascript:setTodo(" + list[i].todoid.toString() + ")'>Update</a>";
+							output = output + "<div id='buttons" + list[i].todoid.toString() + "'><a href='javascript:editTodo(" + list[i].todoid.toString() + ")' class='btn btn-default' style='margin-right: 26px'>" + "Edit</a>";
 						output = output + "<a href='javascript:deleteTodo(" + list[i].todoid.toString() + ")' class='btn btn-danger'>" + "Delete</a>";
-						output = output + "<hr>";
+						output = output + "</div></div>";
 					}
 					document.getElementById("list").innerHTML = output;
 				}  
@@ -109,13 +109,21 @@
 			}
 
 			function editTodo(index, str) {
-				var newData = prompt("Edit  todo", getTodoText(index));
+				document.getElementById(index).style.display = "none";
+				document.getElementById("buttons" + index).style.display = "none";
+				document.getElementById("input" + index).style.display = "block";
+				document.getElementById("button" + index).style.display = "block";
+				document.getElementById("input" + index).value = getTodoText(index);
+			}
+
+
+			function setTodo(index, str) {
+				var newData = document.getElementById("input" + index).value;
 				var url = "./edittodo?todoid=" + encodeURIComponent(index) + "&newtodo=" + encodeURIComponent(newData);
-				console.log(url);
 				var callback = function(data){
 					if(data === "done"){
 						updateList();
-					}
+					}	
 				}
 				loadURL(url, callback);
 			}
